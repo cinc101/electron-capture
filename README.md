@@ -31,7 +31,7 @@ Electron Screen Capture 是一个轻量级的 Electron 插件，支持多屏幕�
 ## 📦 Installation / 安装
 
 ```bash
-npm install electron-screen-capture
+npm install @cinc101/electron-capture
 ```
 
 ---
