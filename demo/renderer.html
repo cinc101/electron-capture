@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Electron Capture Plugin Demo</title>
+</head>
+<body>
+<h1>Electron Capture Plugin Running...</h1>
+
+<button id="captureButton">Start Screenshot</button>
+
+<script>
+  const { ipcRenderer } = require('electron');
+
+  document.getElementById('captureButton')?.addEventListener('click', () => {
+    ipcRenderer.send('screenshot-plugin/request-capture');
+  });
+</script>
+</body>
+</html>

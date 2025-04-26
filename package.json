@@ -1,0 +1,46 @@
+{
+  "name": "@cinc101/electron-capture",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Electron multi-screen screenshot plugin with annotation and multi-language support.",
+  "author": "Chen Jia",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/main.js",
+  "types": "dist/types.d.ts",
+  "files": [
+    "dist",
+    "demo"
+  ],
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cinc101/electron-capture.git"
+  },
+  "scripts": {
+    "build": "vite build",
+    "prepublishOnly": "npm run build",
+    "dev": "vite build & electron demo/boot.cjs"
+  },
+  "peerDependencies": {
+    "electron": ">=22.0.0"
+  },
+  "devDependencies": {
+    "rollup-plugin-obfuscator": "^1.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "vite": "^5.0.0",
+    "vite-plugin-html": "^3.2.2",
+    "vite-plugin-static-copy": "^2.3.1",
+    "electron": "^22.3.0",
+    "typescript": "^5.x"
+  },
+  "keywords": [
+    "electron",
+    "screenshot",
+    "capture",
+    "plugin",
+    "multi-screen",
+    "annotation"
+  ]
+}
