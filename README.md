@@ -78,10 +78,12 @@ app.whenReady().then(async () => {
   await onLoad(pluginContext);
 
   if (pluginContext.exports) {
-    pluginContext.exports.onCaptureDone = (finalImageDataURL) => {
+    const exports = pluginContext.exports;
+    exports.onCaptureDone = (finalImageDataURL) => {
       console.log('Capture completed:', finalImageDataURL);
       mainWindow?.webContents.send('your-custom-capture-done-event', { image: finalImageDataURL });
     };
+    exports.prepareCaptureWindow();
   }
 });
 ```
