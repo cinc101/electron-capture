@@ -1,11 +1,14 @@
-import { app, ipcMain, BrowserWindow, screen, desktopCapturer, dialog } from 'electron';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  screen,
+  desktopCapturer,
+  dialog
+} = require('electron');
+const path = require('path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-import { onLoad } from '../dist/main.js';
+const { onLoad } = require('../dist/main.js');
 
 let mainWindow = null;
 
@@ -27,7 +30,7 @@ const pluginContext = {
     console.log(`[plugin log] ${msg}`);
   },
   config: {
-    lang: 'zh', // 'zh' or 'en'
+    lang: 'en', // 'zh' or 'en'
     color: '#409EFF',
   },
 };
