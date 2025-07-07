@@ -19,9 +19,7 @@
     "url": "https://github.com/cinc101/electron-capture.git"
   },
   "scripts": {
-    "build-vite": "vite build",
-    "build-webpack": "webpack --config webpack.config.cjs && node scripts/generateInlineHtml.js && webpack --config webpack.main.config.cjs",
-    "dev": "build-webpack & electron demo/main.js"
+    "dev": "electron demo/main.js"
   },
   "peerDependencies": {
     "electron": ">=22.0.0"
