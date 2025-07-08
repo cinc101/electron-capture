@@ -1,34 +1,29 @@
 # Electron Screen Capture
 
-Electron Screen Capture is a lightweight Electron plugin that supports multi-display screenshot capturing, annotations, Chinese/English interface switching, and is easy to integrate into your desktop applications.
-
-Electron Screen Capture 是一个轻量级的 Electron 插件，支持多屏幕截图、标注工具和中英文切换，方便集成到桌面应用。
+A lightweight Electron plugin that supports multi-display screenshot capturing with built-in annotation tools. Easy to integrate into your desktop applications.
 
 ![screenshot.jpg](/screenshot.jpg)
 
 ---
 
-## 📢 Notice / 注意
+## 📢 Notice
 
-- Currently supports **Windows 7 to Windows 11**.
-- macOS support is under development.
-
-- 目前支持 **Windows 7 - Windows 11**。
-- **macOS** 支持正在开发中。
+- Currently supports **Windows 7 to Windows 11**
+- macOS support is under development
 
 ---
 
-## ✨ Features / 特性
+## ✨ Features
 
-- 📸 Multi-display screenshot capturing / 多屏幕截图
-- ✏️ Built-in annotation tools / 内置标注工具：矩形、椭圆、箭头、画笔、马赛克、文字
-- 🖌️ Configurable theme color / 支持自定义主色调
-- 🌐 Multi-language support (Chinese / English) / 支持中英文切换
-- 🛠️ Easy integration with Electron apps / 易于集成
+- 📸 Multi-display screenshot capturing
+- ✏️ Built-in annotation tools: rectangle, ellipse, arrow, pen, mosaic, text
+- 🖌️ Configurable theme color
+- 🌐 Multi-language support (Chinese/English)
+- 🛠️ Easy integration with Electron apps
 
 ---
 
-## 📦 Installation / 安装
+## 📦 Installation
 
 ```bash
 npm install @cinc101/electron-capture
@@ -36,10 +31,9 @@ npm install @cinc101/electron-capture
 
 ---
 
-## 🔥 Quick Start / 快速开始
+## 🔥 Quick Start
 
 ### 1. Initialize in Main Process
-### 1. 在主进程初始化
 
 ```ts
 import { app, ipcMain, BrowserWindow, screen, desktopCapturer, dialog } from 'electron';
@@ -75,21 +69,25 @@ app.whenReady().then(async () => {
 
   await mainWindow.loadURL('your app entry point');
 
+  // Initialize the screenshot plugin
   await onLoad(pluginContext);
 
   if (pluginContext.exports) {
     const exports = pluginContext.exports;
+    
+    // Handle capture completion
     exports.onCaptureDone = (finalImageDataURL) => {
       console.log('Capture completed:', finalImageDataURL);
       mainWindow?.webContents.send('your-custom-capture-done-event', { image: finalImageDataURL });
     };
+    
+    // Prepare capture window
     exports.prepareCaptureWindow();
   }
 });
 ```
 
-### 2. Request Screenshot from Renderer
-### 2. 从浏览器端请求截图
+### 2. Request Screenshot from Renderer Process
 
 ```js
 const { ipcRenderer } = require('electron');
@@ -99,21 +97,36 @@ function requestCapture() {
 }
 
 // Example: Bind to a button click
-// 示例：按钮点击请求
-
 document.getElementById('captureButton').addEventListener('click', requestCapture);
+
+// Listen for capture completion
+ipcRenderer.on('your-custom-capture-done-event', (event, data) => {
+  console.log('Screenshot received:', data.image);
+  // Handle the captured image data URL
+});
 ```
 
 ---
 
-## 🔍 Explanation / 详细说明
+## 🔧 API Reference
 
-- `prepareCaptureWindow` is used to create and prepare capture windows. / `prepareCaptureWindow`用于创建和准备截图窗口
-- `onCaptureDone` is called when screenshot is completed, returning the final image data URL. / `onCaptureDone`在截图完成时被调用，返回截图图片数据URL
+### Configuration Options
+
+- `lang`: Language setting ('zh' for Chinese, 'en' for English)
+- `color`: Main theme color (hex color code)
+
+### Key Methods
+
+- `prepareCaptureWindow()`: Creates and prepares capture windows for screenshot functionality
+- `onCaptureDone(callback)`: Callback function called when screenshot is completed, returns the final image data URL
+
+### IPC Events
+
+- `screenshot-plugin/request-capture`: Send this event from renderer to initiate screenshot capture
 
 ---
 
-## 📄 License / 许可协议
+## 📄 License
 
-MIT License.
+MIT License
 
