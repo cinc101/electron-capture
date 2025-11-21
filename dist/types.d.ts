@@ -22,6 +22,11 @@ export interface PluginContext {
   config?: {
     color?: string;
     lang?: 'zh' | 'en';
+    customButton?: {
+      icon?: string;
+      title?: string;
+      callback?: (imageData: string, close: () => void) => void;
+    };
   };
 }
 
