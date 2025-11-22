@@ -1,6 +1,6 @@
 {
   "name": "@cinc101/electron-capture",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "description": "Electron multi-screen screenshot plugin with annotation and multi-language support.",
   "author": "Chen Jia",
