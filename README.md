@@ -78,6 +78,12 @@ app.whenReady().then(async () => {
       mainWindow?.webContents.send('your-custom-capture-done-event', { image: finalImageDataURL });
     };
     
+    // Handle capture cancellation
+    exports.onCaptureCancel = () => {
+      console.log('Capture cancelled by user');
+      mainWindow?.webContents.send('your-custom-capture-cancel-event');
+    };
+    
     // Prepare capture window
     exports.prepareCaptureWindow();
   }
@@ -103,6 +109,12 @@ ipcRenderer.on('your-custom-capture-done-event', (event, data) => {
   console.log('Screenshot received:', data.image);
   // Handle the captured image data URL
   // Note: Image is already copied to clipboard automatically
+});
+
+// Listen for capture cancellation
+ipcRenderer.on('your-custom-capture-cancel-event', () => {
+  console.log('Screenshot cancelled by user');
+  // Handle cancellation, e.g., restore UI state, show notification
 });
 ```
 
@@ -171,6 +183,7 @@ After calling `onLoad(pluginContext)`, the following methods are available via `
 |--------|-------------|
 | `prepareCaptureWindow()` | Pre-creates screenshot windows for faster capture |
 | `onCaptureDone` | Callback function, set this to handle completed screenshots |
+| `onCaptureCancel` | Callback function, set this to handle cancelled screenshots (triggered when user presses ESC or clicks cancel) |
 
 ### IPC Events
 
@@ -178,6 +191,7 @@ After calling `onLoad(pluginContext)`, the following methods are available via `
 |-------|-----------|-------------|
 | `screenshot-plugin/request-capture` | Main → Plugin | Trigger screenshot (with optional customButton) |
 | `screenshot-plugin/capture-done` | Plugin → Main | Screenshot completed (image auto-copied to clipboard) |
+| `screenshot-plugin/capture-cancel` | Plugin → Main | Screenshot cancelled by user (ESC key or cancel button) |
 
 ### Clipboard Behavior
 
